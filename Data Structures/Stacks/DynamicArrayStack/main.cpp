@@ -1,0 +1,74 @@
+#include <iostream>
+#include "Stack.h"
+
+using namespace std;
+
+const int SIZE = 15;
+
+int main()
+{
+    Stack stat(4);
+
+    cout << stat << stat.isEmpty() << "\n\n";
+
+    stat.push(-1000);
+    stat.push(-5000);
+    cout << stat.top() << " , Empty? " << stat.isEmpty() << endl;
+
+    cout << stat << endl;
+
+    for (int i = 0; i < 10; i++)
+    {
+        cout << stat.pop() << " ";
+    }
+    cout << "\n\n";
+
+    for (int i = 0; i < 5; i++)
+    {
+        stat.push(i * i);
+    }
+
+    Stack otherStat(stat);
+    cout << "1 - ORIGINAL\n"
+         << stat << endl
+         << "OTHER\n"
+         << otherStat << "\n\n";
+
+    otherStat.push(1234);
+
+    cout << "2 - ORIGINAL\n"
+         << stat << endl
+         << "OTHER\n"
+         << otherStat << "\n\n\n";
+
+    otherStat = stat;
+    cout << "3 - ORIGINAL\n"
+         << stat << endl
+         << "OTHER\n"
+         << otherStat << "\n\n\n";
+    // dynamic
+
+    Stack *dyna = new Stack(4);
+    cout << *dyna;
+
+    for (int i = 0; i < 12; i++)
+    {
+        dyna->push(10 * i);
+    }
+    cout << *dyna;
+
+    // Stack *otherDyna = new Stack(*dyna);
+    Stack otherDyna = *dyna;
+    cout << "2 - ORIGINAL\n"
+         << *dyna << endl
+         << "OTHER\n"
+         << otherDyna << "\n\n\n";
+
+    otherDyna.pop();
+
+    cout << "2 - ORIGINAL\n"
+         << *dyna << endl
+         << "OTHER\n"
+         << otherDyna << "\n\n\n";
+         //<< ((dyna == otherDyna) ? "EQUAL": "DIFFERENT") << endl;
+}

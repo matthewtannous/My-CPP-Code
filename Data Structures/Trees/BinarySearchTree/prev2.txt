@@ -1,0 +1,43 @@
+#include <iostream>
+#include "Tree.h"
+
+int getTreeHeight(NodePtr n);
+
+using namespace std;
+
+int main()
+{
+
+    Tree t;
+
+    t.insert(100);
+
+    t.insert(50);
+    t.insert(70);
+
+    t.insert(150);
+    t.insert(200);
+    t.insert(125);
+    t.insert(250);
+    t.insert(300);
+
+    cout << getTreeHeight(t.getRootNode());
+}
+
+int getTreeHeight(NodePtr n)
+{
+    // traverse all paths,
+    if (n == NULL)
+    {
+        return -1; // -1 instead of zero because height must start from zero
+    }
+
+    int left = getTreeHeight(n->left);
+    int right = getTreeHeight(n->right);
+
+    if (left > right)
+    {
+        return 1 + left;
+    }
+    return 1 + right;
+}

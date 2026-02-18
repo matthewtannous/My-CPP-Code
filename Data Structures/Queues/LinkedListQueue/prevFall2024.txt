@@ -1,0 +1,46 @@
+// PREVIOUS DS LAB  Fall 2024
+
+#include <iostream>
+#include "Queue.h"
+
+using namespace std;
+
+void duplicateElements(Queue &q);
+
+int main()
+{
+    Queue q1, q2;
+
+    q1.enqueue(3);
+    q1.enqueue(7);
+    q1.enqueue(2);
+    q1.enqueue(5);
+    q1.enqueue(9);
+
+    cout << "Original q1: " << q1;
+
+    duplicateElements(q1);
+    cout << "\nReformed q1: " << q1;
+
+    q2.enqueue(10);
+    q2.enqueue(2);
+    q2.enqueue(1);
+
+    cout << "\nOriginal q2: " << q2;
+    duplicateElements(q2);
+
+    cout << "\nReformed q2: " << q2;
+}
+
+void duplicateElements(Queue &q)
+{
+    Queue copy(q);
+    while (!copy.isEmpty())
+    {
+        q.enqueue(q.getFront());
+        q.enqueue(q.getFront());
+        q.dequeue();
+
+        copy.dequeue();
+    }
+}

@@ -1,0 +1,125 @@
+#include <iostream>
+#include "Tree.h"
+
+using namespace std;
+
+void displayMenu();
+void userChoice(Tree &tree, int choice);
+
+int main()
+{
+    Tree t;
+
+    // int choice;
+    // do
+    // {
+    //     displayMenu();
+    //     cin >> choice;
+    //     cout << endl;
+    //     userChoice(t, choice);
+    // } while (choice != 0);
+
+
+    t.insert(100);
+    t.insert(300);
+    t.insert(200);
+    t.insert(1200);
+    Tree copy(t);
+
+    t.insert(321321);
+    cout << "\nOriginal:\nIn order: ";
+    t.inOrder(cout);
+    cout << "Pre order: ";
+    t.preOrder(cout);
+    cout << "Post order: ";
+    t.postOrder(cout);
+
+    cout << "\nCopy:\nIn order: ";
+    copy.inOrder(cout);
+    cout << "Pre order: ";
+    copy.preOrder(cout);
+    cout << "Post order: ";
+    copy.postOrder(cout);
+}
+
+void displayMenu()
+{
+    cout << "\n\n Menu\n=====================================================\n"
+         << "1) Insert value in the tree\n"
+         << "2) Display - inorder\n"
+         << "3) Display - preorder\n"
+         << "4) Display - postorder\n"
+         << "5) Check if an element is found in the ree\n"
+         << "6) Count the number of nodes in the tree\n"
+         << "7) Get sum of nodes\n"
+         << "8) Delete an element\n"
+         << "0) Exit\n\n"
+         << "Please choose a number: ";
+}
+
+void userChoice(Tree &tree, int choice)
+{
+    ElementType element;
+    switch (choice)
+    {
+    case 1:
+        cout << "Enter element to insert: ";
+        cin >> element;
+        if (tree.insert(element))
+        {
+            cout << "Insertion successful\n";
+        }
+        else
+        {
+            cout << "Insertion failed\n";
+        }
+        break;
+    case 2:
+        cout << "In order: ";
+        tree.inOrder(cout);
+        break;
+    case 3:
+        cout << "Pre order: ";
+        tree.preOrder(cout);
+        break;
+    case 4:
+        cout << "Post order: ";
+        tree.postOrder(cout);
+        break;
+    case 5:
+        cout << "Enter element to check: ";
+        cin >> element;
+        if (tree.search(element))
+        {
+            cout << "Element " << element << " is in the tree\n";
+        }
+        else
+        {
+            cout << "Element " << element << " is not in the tree\n";
+        }
+        break;
+    case 6:
+        cout << "Number of elements: " << tree.countNodes();
+        break;
+    case 7:
+        cout << "Sum of nodes: " << tree.getSum();
+        break;
+    case 8:
+        cout << "Enter element to delete: ";
+        cin >> element;
+        if (tree.remove(element))
+        {
+            cout << "Deletion successful\n";
+        }
+        else
+        {
+            cout << "Deletion failed\n";
+        }
+        break;
+    case 0:
+        cout << "BYE\n";
+        return;
+    default:
+        cout << "Invalid choice.\n";
+    }
+}

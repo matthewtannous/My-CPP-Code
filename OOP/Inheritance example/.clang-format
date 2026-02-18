@@ -1,0 +1,5 @@
+# For VSCodium C++ intellisense
+
+# BasedOnStyle: Google
+IndentWidth: 4
+

@@ -1,0 +1,32 @@
+Make sure args in tasks.json is like this when compiling many files at once
+
+"args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${fileDirname}\\**.cpp",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+
+
+
+
+
+
+
+
+
+"args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-pedantic-errors",
+                "-Wall",
+                "-Weffc++",
+                "-Wextra",
+                "-Wconversion",
+                "-Wsign-conversion",
+                "-Werror",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],

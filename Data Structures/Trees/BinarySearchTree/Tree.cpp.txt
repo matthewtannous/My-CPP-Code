@@ -1,0 +1,313 @@
+#include <iostream>
+#include "Tree.h"
+
+using namespace std;
+
+// Tree::TreeNode::TreeNode(const ElementType &data)
+//     : data(data), left(NULL), right(NULL) {}
+
+TreeNode::TreeNode(const ElementType &data)
+    : data(data), left(NULL), right(NULL) {}
+
+Tree::Tree() : root(NULL) {}
+
+Tree::Tree(const Tree &other)
+{
+    if (other.root == NULL)
+    {
+        root = NULL;
+    }
+    else
+    {
+        root = new TreeNode(other.root->data);
+        // copy everything recursively
+        setNode(root, other.root);
+    }
+}
+
+void Tree::setNode(NodePtr thisNode, NodePtr otherNode)
+{
+    if (otherNode != NULL)
+    {
+        if (otherNode->left == NULL)
+        {
+            thisNode->left == NULL;
+        }
+        else
+        {
+            thisNode->left = new TreeNode(otherNode->left->data);
+        }
+
+        if (otherNode->right == NULL)
+        {
+            thisNode->right == NULL;
+        }
+        else
+        {
+            thisNode->right = new TreeNode(otherNode->right->data);
+        }
+
+        setNode(thisNode->left, otherNode->left);
+        setNode(thisNode->right, otherNode->right);
+    }
+}
+
+Tree::~Tree()
+{
+    deleteFromNode(root);
+}
+
+void Tree::deleteFromNode(NodePtr r)
+{
+    if (r != NULL)
+    {
+        deleteFromNode(r->left);
+        deleteFromNode(r->right);
+        delete r;
+    }
+}
+
+ElementType Tree::getRoot() const
+{
+    return root->data;
+}
+
+NodePtr Tree::getRootNode() const
+{
+    return root;
+}
+
+bool Tree::isEmpty() const
+{
+    return root == NULL;
+}
+
+bool Tree::insert(const ElementType &e)
+{
+    if (root == NULL)
+    {
+        root = new TreeNode(e);
+        return true;
+    }
+    // smaller, go left. bigger, go right, equal, return false
+
+    NodePtr temp = root;
+    NodePtr parent = NULL;
+    while (temp != NULL)
+    {
+        parent = temp;
+        if (e > temp->data) // go right
+        {
+            temp = temp->right;
+        }
+        else if (e < temp->data) // go left
+        {
+            temp = temp->left;
+        }
+        else // element already is in the tree.
+        {
+            return false;
+        }
+    }
+
+    // temp is null, insert at parent->left or parent->right
+    if (e > parent->data) // insert right
+    {
+        parent->right = new TreeNode(e);
+    }
+    else
+    {
+        parent->left = new TreeNode(e);
+    }
+    return true;
+}
+
+void Tree::inOrder(ostream &out) const // left, parent, right
+{
+    inOrderAux(out, root);
+    out << endl;
+}
+
+void Tree::inOrderAux(ostream &out, NodePtr r) const
+{
+    if (r != NULL)
+    {
+        inOrderAux(out, r->left);
+        out << r->data << " ";
+        inOrderAux(out, r->right);
+    }
+}
+
+void Tree::preOrder(ostream &out) const // parent, left, right
+{
+    preOrderAux(out, root);
+    out << endl;
+}
+
+void Tree::preOrderAux(ostream &out, NodePtr r) const
+{
+    if (r != NULL)
+    {
+        out << r->data << " ";
+        preOrderAux(out, r->left);
+        preOrderAux(out, r->right);
+    }
+}
+
+void Tree::postOrder(ostream &out) const // left, right, parent
+{
+    postOrderAux(out, root);
+    out << endl;
+}
+void Tree::postOrderAux(ostream &out, NodePtr r) const
+{
+    if (r != NULL)
+    {
+        postOrderAux(out, r->left);
+        postOrderAux(out, r->right);
+        out << r->data << " ";
+    }
+}
+
+int Tree::countNodes() const
+{
+    return countNodesAux(root);
+}
+int Tree::countNodesAux(NodePtr r) const
+{
+    if (r != NULL)
+    {
+        return 1 + countNodesAux(r->left) + countNodesAux(r->right);
+    }
+    return 0;
+}
+
+bool Tree::search(const ElementType &e) const
+{
+    NodePtr temp = root;
+    while (temp != NULL)
+    {
+        if (e > temp->data)
+        {
+            temp = temp->right;
+        }
+        else if (e < temp->data)
+        {
+            temp = temp->left;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    // Reached end of tree without finding element
+    return false;
+}
+
+ElementType Tree::getSum() const
+{
+    return getSumAux(root);
+}
+
+ElementType Tree::getSumAux(NodePtr r) const
+{
+    if (r == NULL)
+    {
+        return 0;
+    }
+    return r->data + getSumAux(r->left) + getSumAux(r->right);
+}
+
+bool Tree::remove(const ElementType &e)
+{
+    NodePtr current = root;
+    NodePtr parent = NULL;
+
+    while (current != NULL && current->data != e)
+    {
+        if (e > current->data)
+        {
+            parent = current;
+            current = current->right;
+        }
+        else if (e < current->data)
+        {
+            parent = current;
+            current = current->left;
+        }
+    }
+
+    if (current == NULL) // could not find e
+    {
+        return false;
+    }
+
+    // current points to node we must delete, parent points to its parent
+    if (current->left != NULL && current->right != NULL)
+    {
+        // Node containing e has two children
+        NodePtr succ = current->right;
+        parent = current;
+        while (succ->left != NULL)
+        {
+            parent = succ;
+            succ = succ->left;
+        }
+        current->data = succ->data;
+        current = succ;
+    }
+
+    // current points to node we must delete, parent points to its parent
+    // delete current
+
+    // NOTE: current has ONLY ONE CHILD or no child
+    // subTree points to the node after current
+    NodePtr subTree = current->left;
+    if (subTree == NULL)
+    {
+        subTree = current->right;
+    }
+
+    if (parent == NULL) // delete root node
+    {
+        root = subTree;
+    }
+    else if (parent->left == current)
+    {
+        parent->left = subTree;
+    }
+    else
+    {
+        parent->right = subTree;
+    }
+
+    delete current;
+
+    return true;
+}
+
+ostream &operator<<(ostream &out, const Tree &tree)
+{
+    tree.inOrder(out);
+    return out;
+}
+
+
+// PREVIOUS 1 (pdf)
+void Tree::printAncestorsData(NodePtr n, ElementType data) const
+{
+    // the method is called only when the element is known to be in the list.
+    // if (search(data)) // not needed
+    if (n->data != data) // n != NULL not needed
+    {
+        cout << n->data << " ";
+        if (data < n->data)
+        {
+            printAncestorsData(n->left, data);
+        }
+        else
+        {
+            printAncestorsData(n->right, data);
+        }
+    }
+}
