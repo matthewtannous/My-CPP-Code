@@ -75,8 +75,7 @@ int partition_pivot_first(int arr[], int low, int high)
         }
     }
 
-    // DO NOT INCREMENT x,  it points to the last element smallest than the
-    // pivot
+    // DO NOT INCREMENT x, it points to the last element smallest than the pivot
     swap(arr[x], arr[low]);
     return x;
 }
