@@ -97,18 +97,17 @@ void quick_sort(ElementType arr[], int low, int high = SIZE - 1)
 
 void run()
 {
-    cout << "\n";
-
-    // Code here
-
     int a[SIZE] = {6, 2, 5, 1, 4, 9, 0, 3, 4, 4, 8, 7, -10};
 
     cout << "Original:\t" << a;
 
     quick_sort(a, 0, SIZE - 1);
     cout << "Quick Sort:\t" << a;
-
-    cout << "\n\n";
 }
 
-int main() { run(); }
+int main()
+{
+    cout << "\n";
+    run();
+    cout << "\n\n";
+}

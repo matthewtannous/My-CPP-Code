@@ -135,10 +135,6 @@ void insertion_sort(ElementType *arr, int size = SIZE)
 
 void run()
 {
-    cout << "\n";
-
-    // Code here
-
     int a[SIZE] = {6, 2, 5, 1, 4, 9, 0, 3, 4, 4, 8, 7, -10};
 
     cout << "Original:\t\t" << a;
@@ -154,8 +150,11 @@ void run()
 
     // insertion_sort(a);
     // cout << "Insertion sort:\t" << a;
-
-    cout << "\n\n";
 }
 
-int main() { run(); }
+int main()
+{
+    cout << "\n";
+    run();
+    cout << "\n\n";
+}
