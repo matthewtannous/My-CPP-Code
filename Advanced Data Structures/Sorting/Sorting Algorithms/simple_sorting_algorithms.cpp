@@ -1,4 +1,3 @@
-#include <cstdio>
 #include <iostream>
 
 using namespace std;
@@ -24,12 +23,13 @@ ostream &operator<<(ostream &out, ElementType *arr)
     return out;
 }
 
+// O(n^2)
 void bubble_sort(ElementType *arr, int size = SIZE)
 {
     ElementType temp;
-    bool sorted;
+    bool sorted = false;
     // SIZE - 1  is the number of swaps needed to "traverse" the array
-    for (int i = 0; i < SIZE - 1; i++)
+    for (int i = 0; i < SIZE - 1 && !sorted; i++)
     {
         sorted = true;
         for (int j = 0; j < SIZE - i - 1; j++)
@@ -44,8 +44,8 @@ void bubble_sort(ElementType *arr, int size = SIZE)
                 sorted = false;
             }
         }
-        if (sorted)
-            break;
+        // if (sorted)
+        //     break;
     }
 }
 
@@ -149,8 +149,8 @@ void run()
     // selection_sort(a);
     // cout << "Selection sort:\t" << a;
 
-    double_ended_selection_sort(a);
-    cout << "Double selection sort:\t" << a;
+    // double_ended_selection_sort(a);
+    // cout << "Double selection sort:\t" << a;
 
     // insertion_sort(a);
     // cout << "Insertion sort:\t" << a;

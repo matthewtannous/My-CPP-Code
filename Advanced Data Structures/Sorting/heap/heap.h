@@ -114,6 +114,7 @@ template <typename ElementType> void Heap<ElementType>::insert(ElementType e)
 
     int parent;
 
+    // Percolate Up (Heapify Up)
     for (int child = size++; child > 0; child = parent)
     {
         parent = (child - 1) / 2;
@@ -125,7 +126,7 @@ template <typename ElementType> void Heap<ElementType>::insert(ElementType e)
             arr[parent] = temp;
         }
         else
-            break;
+            return;
     }
 }
 
@@ -145,6 +146,7 @@ template <typename ElementType> void Heap<ElementType>::remove()
     // children are at (parent * 2 + 1) and (parent * 2 + 2)
 
     ElementType temp;
+    // Percolate Down (Heapify Down)
     // start from left child of root
     for (int parent = 0, child = 1; child < size;)
     {
@@ -154,16 +156,13 @@ template <typename ElementType> void Heap<ElementType>::remove()
             child++;
         }
         // swap parent with largest of 2 children
-        if (arr[child] > arr[parent])
-        {
-            temp = arr[child];
-            arr[child] = arr[parent];
-            arr[parent] = temp;
-        }
-        else
-        {
+        if (arr[child] < arr[parent]) // parent is in correct position
             return;
-        }
+
+        temp = arr[child];
+        arr[child] = arr[parent];
+        arr[parent] = temp;
+
         parent = child;
         child = parent * 2 + 1;
     }
@@ -208,6 +207,7 @@ void Heap<ElementType>::printTree(ostream &out) const
         endIndex = min(endIndex + 2 * rowLength, size - 1);
     }
 }
+
 template <typename ElementType>
 void Heap<ElementType>::printOneLevel(int numRows, int level, int beginIndex,
                                       int endIndex) const
