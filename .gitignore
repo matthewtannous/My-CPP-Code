@@ -45,5 +45,9 @@
 # debug information files
 *.dwo
 
-# Code Runner generated file
+# Code Runner generated file (VSCode extension)
 tempCodeRunnerFile.cpp
+
+# Temporary files for Merge Sort
+Advanced\ Data\ Structures/Sorting/Sorting\ Algorithms/file2.txt
+Advanced\ Data\ Structures/Sorting/Sorting\ Algorithms/file3.txt
