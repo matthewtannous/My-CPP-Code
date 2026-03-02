@@ -5,9 +5,50 @@ using namespace std;
 typedef int ElementType;
 
 /*
-All sorting algorithms
-
 Sort in increasing order
+
+Sorting algorithms in this file:
+    Bubble Sort
+    Selection Sort
+    Double-Ended Selection Sort
+    Insertion Sort
+
+PSEUDOCODES:
+
+Bubble Sort:
+1. Assume that N data in an array (List, Table, ...)
+2. Assume that N elements are not sorted
+3. Assume the last element is not sorted (?)
+4. Repeat N - 1 times or until all elements are sorted:
+5.    Assume all elements are sorted
+6.    For index from 0 to before the index of the last unsorted element:
+7.        If element at index is greater than its successor
+                                        (element at index + 1):
+8.            Swap them
+9.            Assume the elements are not sorted
+      // By the end of this repetition the last element will be sorted
+
+
+Selection Sort:
+1. Assume N data in an array
+(2. Assume N elements are not sorted) --- Not Needed?
+3. For i starting from index of last element to 1:
+4.    Assume index of max element is 0 (the first element)
+5.    For j starting from 1 (second element) to i:
+6.            If element at j is greater than element at max index:
+7.                Assume max index is j
+8.    swap element at max index with element at i
+      // By the end of this repetition the last element will be sorted
+
+
+Insertion Sort:
+1. Assume N data in an array
+2. For index from 1 to the index of last element
+3.    Copy element at index into 'temp'
+4.    For j starting from i until 1 OR until element at j-1 is bigger than temp:
+5.        Move element at position j - 1 into element at position j
+6.    Copy temp into element at position j
+
 */
 
 const int SIZE = 13; // So we don't pass size as argument every time
@@ -23,7 +64,6 @@ ostream &operator<<(ostream &out, ElementType *arr)
     return out;
 }
 
-// O(n^2)
 void bubble_sort(ElementType *arr, int size = SIZE)
 {
     ElementType temp;

@@ -5,9 +5,36 @@ using namespace std;
 typedef int ElementType;
 
 /*
-All sorting algorithms
-
 Sort in increasing order
+
+Variations of Quick Sort in this file:
+    Pivot as first element
+    Pivot as last element
+
+PSEUDOCODE:
+
+Quick Sort with pivot as last element:
+
+Partition algorithm:
+1. Assume that N data in an array
+2. Assume pivot is last element in the array (or section of the array)
+3. Assume x points to the element before the first element in the array
+4. For y from first element in the array to before index of pivot:
+5.    If element at y is smaller than pivot:
+6.        Increment x
+7.        Swap elements at x and y
+      // y is incremented at every pass through the loop
+8. Swap element at pivot with element at x + 1
+// Now elements to the left of pivot are smaller than pivot and elements to the
+// right of pivot are larger than pivot
+9. Return x + 1
+
+Quick Sort algorithm:
+1. Repeat until the subarray is empty:
+2.    Partition the array
+3.    Quick Sort the left part of the array
+4.    Quick Sort the right part of the array
+
 */
 
 const int SIZE = 13; // So we don't pass size as argument every time
