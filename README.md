@@ -5,6 +5,7 @@
 - clangd, clang-format
 
 ## Setup (VSCode)
+- Download extensions: clangd and Code Runner
 - create .clang-format file in C++ project
 - In a terminal, run:
 
