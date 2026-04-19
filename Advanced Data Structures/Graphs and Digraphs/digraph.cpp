@@ -25,7 +25,6 @@ public:
     // adds v to the adjacency list of u, indicating an edge from u to v.
     void addEdge(int u, int v)
     {
-
         // push_back(v) appends the value v to the end of the adjacency list for
         // vertex u.
         adjList[u].push_back(v);
