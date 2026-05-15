@@ -22,7 +22,7 @@ void test()
     cout << heap;
 
     Heap<int> h2 = heap;
-    cout << "H2" <<  h2;
+    cout << "H2" << h2;
 
     for (int i = 0; i < 3; i++)
         h2.remove();
